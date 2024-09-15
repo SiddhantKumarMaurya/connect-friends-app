@@ -12,14 +12,11 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            console.log('Submitting login request:', formData);
             const res = await axios.post('http://localhost:5000/api/auth/login', formData);
-            console.log('Login response:', res.data);
-            localStorage.setItem('auth-token', res.data?.token || '');
+            localStorage.setItem('auth-token', res.data.token);
+            localStorage.setItem('user-id', res.data.userId); // Store user ID
             setMessage('Login successful!');
         } catch (err) {
-            // Check if error response exists
-            console.error('login error', err);
             if (err.response && err.response.data) {
                 setMessage(err.response.data.msg);
             } else {
