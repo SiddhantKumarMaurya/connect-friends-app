@@ -42,8 +42,9 @@ const SearchUser = () => {
 
             setMessage(res.data.msg);
         } catch (err) {
-            console.error('Error during friend request:', err);
+            console.error('Error during friend request:', err.response.data.msg);
             setMessage('An error occurred while sending the friend request.');
+            setMessage(err.response.data.msg); // responds to the user with correct messages
         }
     };
 

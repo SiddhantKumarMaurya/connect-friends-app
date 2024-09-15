@@ -27,6 +27,11 @@ router.post('/request', auth, async (req, res) => {
     }
 
     try {
+        // Prevent users from friending themselves
+        if (userId === friendId) {
+            return res.status(400).json({ msg: 'You cannot add yourself as a friend.' });
+        }
+
         const user = await User.findById(userId);
         const friend = await User.findById(friendId);
 
@@ -34,6 +39,7 @@ router.post('/request', auth, async (req, res) => {
             return res.status(404).json({ msg: 'User not found' });
         }
 
+        // Prevent adding an existing friend
         if (user.friends.includes(friendId)) {
             return res.status(400).json({ msg: 'Already friends' });
         }
