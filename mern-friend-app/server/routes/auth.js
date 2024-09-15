@@ -25,20 +25,20 @@ router.post('/register', async (req, res) => {
         await newUser.save();
         res.status(201).json({ msg: 'User registered successfully' });
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(500).json({ msg: 'Server error, please try again.' });
     }
 });
 
 // Login
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
+    console.log('Received login request:', req.body); // Log the request body
 
     try {
         const user = await User.findOne({ username });
         if (!user) {
             return res.status(400).json({ msg: 'Invalid credentials' });
         }
-
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(400).json({ msg: 'Invalid credentials' });

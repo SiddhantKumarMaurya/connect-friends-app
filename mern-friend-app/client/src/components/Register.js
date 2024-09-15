@@ -11,11 +11,17 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log('Form Data:', formData); // Add this line
         try {
             const res = await axios.post('http://localhost:5000/api/auth/register', formData);
-            setMessage(res.data.msg);
+            setMessage(res.data?.msg || 'Registration successful!');
         } catch (err) {
-            setMessage(err.response.data.msg);
+            // Check if the error response exists
+            if (err.response && err.response.data) {
+                setMessage(err.response.data.msg);
+            } else {
+                setMessage('An error occurred. Please try again.');
+            }
         }
     };
 
