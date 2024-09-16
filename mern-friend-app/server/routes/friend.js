@@ -39,12 +39,13 @@ router.post('/request', auth, async (req, res) => {
             return res.status(404).json({ msg: 'User not found' });
         }
 
+        // Prevent adding an existing friend
         if (user.friends.includes(friendId) || friend.friends.includes(userId)) {
             return res.status(400).json({ msg: 'You are already friends.' });
         }
 
-        // Prevent adding an existing friend
-        if (user.friends.includes(friendId)) {
+        // Prevent sending duplicate friend requests
+        if (friend.friendRequests.includes(userId)) {
             return res.status(400).json({ msg: 'Friend request already sent.' });
         }
 

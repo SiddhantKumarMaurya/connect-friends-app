@@ -37,8 +37,12 @@ const FriendRecommendations = () => {
             setMessage(res.data.msg);
             fetchRecommendations(); // Refresh recommendations
         } catch (err) {
-            console.error('Error during friend request:', err);
-            setMessage('An error occurred while sending the friend request.');
+            if (err.response && err.response.data) {
+                setMessage(err.response.data.msg); // Display the error message from the server
+            } else {
+                console.error('Error during friend request:', err);
+                setMessage('An error occurred while sending the friend request.');
+            }
         }
     };
 
