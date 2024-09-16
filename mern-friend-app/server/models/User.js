@@ -6,6 +6,10 @@ const UserSchema = new mongoose.Schema({
     friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     friendRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }], // Add friendRequests field
     interests: [{ type: String , default:[]}], // Add interests field
+    notifications: [{
+        message: String,
+        timestamp: { type: Date, default: Date.now }
+    }] // Add notifications field
 });
 
 module.exports = mongoose.model('User', UserSchema);

@@ -2,6 +2,7 @@ import React from 'react';
 import SearchUser from './SearchUser';
 import FriendRequests from './FriendRequests';
 import FriendRecommendations from './FriendRecommendations';
+import Notifications from './Notifications'; // Import the Notifications component
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
@@ -18,6 +19,8 @@ const Home = () => {
         <div>
             <h2>Welcome to the Home Page</h2>
             <button onClick={handleLogout}>Logout</button>
+             {/* Display notifications */}
+             <Notifications />
             <FriendRequests />
             <FriendRecommendations />
             <SearchUser />

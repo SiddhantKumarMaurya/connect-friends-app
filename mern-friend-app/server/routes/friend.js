@@ -51,6 +51,12 @@ router.post('/request', auth, async (req, res) => {
 
         // Add the friend request to the friend's pending requests
         friend.friendRequests.push(userId);
+
+        // Add a notification for the friend
+        friend.notifications.push({
+            message: `${user.username} has sent you a friend request.`,
+        });
+
         await friend.save();
 
         res.status(200).json({ msg: 'Friend request sent' });
@@ -86,6 +92,13 @@ router.post('/accept', auth, async (req, res) => {
 
         // Remove the friend request
         user.friendRequests = user.friendRequests.filter((id) => id.toString() !== friendId);
+        
+        // Add a notification for the friend about the acceptance
+        friend.notifications.push({
+            message: `${user.username} has accepted your friend request.`,
+            // timestamp: new Date(),
+        });
+        
         await user.save();
         await friend.save();
 
@@ -106,8 +119,9 @@ router.post('/reject', auth, async (req, res) => {
 
     try {
         const user = await User.findById(userId);
+        const friend = await User.findById(friendId);
 
-        if (!user) {
+        if (!user || !friend) {
             return res.status(404).json({ msg: 'User not found' });
         }
 
@@ -117,7 +131,14 @@ router.post('/reject', auth, async (req, res) => {
 
         // Remove the friend request
         user.friendRequests = user.friendRequests.filter((id) => id.toString() !== friendId);
+        
+        // Add a notification for the friend about the rejection
+        friend.notifications.push({
+            message: `${user.username} has rejected your friend request.`,
+        });
+        
         await user.save();
+        await friend.save();
 
         res.status(200).json({ msg: 'Friend request rejected.' });
     } catch (err) {
@@ -230,6 +251,29 @@ router.get('/:userId/recommendations', auth, async (req, res) => {
         res.status(500).json({ msg: 'Server error, please try again.' });
     }
 });
+
+// Get notifications for a user
+router.get('/:userId/notifications', auth, async (req, res) => {
+    const { userId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+        return res.status(400).json({ msg: 'Invalid user ID' });
+    }
+
+    try {
+        const user = await User.findById(userId).select('notifications');
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+
+        console.log("I am here")
+        res.status(200).json({ notifications: user.notifications });
+    } catch (err) {
+        console.error('Error fetching notifications:', err);
+        res.status(500).json({ msg: 'Server error, please try again.' });
+    }
+});
+
 
 
 module.exports = router;
