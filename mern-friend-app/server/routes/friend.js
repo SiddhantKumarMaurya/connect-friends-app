@@ -274,6 +274,77 @@ router.get('/:userId/notifications', auth, async (req, res) => {
     }
 });
 
+// Get all users excluding the current user
+router.get('/:userId/users', auth, async (req, res) => {
+    const { userId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+        return res.status(400).json({ msg: 'Invalid user ID' });
+    }
+
+    try {
+        const users = await User.find({ _id: { $ne: userId } }).select('username');
+        res.status(200).json({ users });
+    } catch (err) {
+        console.error('Error fetching users:', err);
+        res.status(500).json({ msg: 'Server error, please try again.' });
+    }
+});
+
+
+// Get the user's friends
+router.get('/:userId/friends', auth, async (req, res) => {
+    const { userId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+        return res.status(400).json({ msg: 'Invalid user ID' });
+    }
+
+    try {
+        const user = await User.findById(userId).populate('friends', 'username');
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+
+        res.status(200).json({ friends: user.friends });
+    } catch (err) {
+        console.error('Error fetching friends:', err);
+        res.status(500).json({ msg: 'Server error, please try again.' });
+    }
+});
+
+
+// Unfriend a user
+router.post('/unfriend', auth, async (req, res) => {
+    const { userId, friendId } = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(friendId)) {
+        return res.status(400).json({ msg: 'Invalid user IDs' });
+    }
+
+    try {
+        const user = await User.findById(userId);
+        const friend = await User.findById(friendId);
+
+        if (!user || !friend) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+
+        // Remove each other from friends list
+        user.friends = user.friends.filter(id => id.toString() !== friendId);
+        friend.friends = friend.friends.filter(id => id.toString() !== userId);
+
+        await user.save();
+        await friend.save();
+
+        res.status(200).json({ msg: 'Unfriended successfully.' });
+    } catch (err) {
+        console.error('Error unfriending user:', err);
+        res.status(500).json({ msg: 'Server error, please try again.' });
+    }
+});
+
+
 
 
 module.exports = router;

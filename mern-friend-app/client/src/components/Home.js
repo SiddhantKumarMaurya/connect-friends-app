@@ -3,6 +3,8 @@ import SearchUser from './SearchUser';
 import FriendRequests from './FriendRequests';
 import FriendRecommendations from './FriendRecommendations';
 import Notifications from './Notifications'; // Import the Notifications component
+import UserList from './UserList'; // Import UserList component
+import FriendsList from './FriendsList'; // Import FriendsList component
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
@@ -19,8 +21,16 @@ const Home = () => {
         <div>
             <h2>Welcome to the Home Page</h2>
             <button onClick={handleLogout}>Logout</button>
+            
              {/* Display notifications */}
-             <Notifications />
+            <Notifications />
+
+             {/* Display initial users with search bar */}
+             <UserList />
+
+            {/* Display friends list with option to unfriend */}
+            <FriendsList />
+            
             <FriendRequests />
             <FriendRecommendations />
             <SearchUser />
