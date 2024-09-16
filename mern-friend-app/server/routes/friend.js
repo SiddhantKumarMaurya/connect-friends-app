@@ -146,4 +146,52 @@ router.get('/:userId/friendRequests', auth, async (req, res) => {
     }
 });
 
+// Get friend recommendations based on mutual friends
+router.get('/:userId/recommendations', auth, async (req, res) => {
+    const { userId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+        return res.status(400).json({ msg: 'Invalid user ID' });
+    }
+
+    try {
+        // Find the user and populate their friends
+        const user = await User.findById(userId).populate('friends', 'friends');
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+
+        // Collect the user's friends' friends (excluding the user's direct friends and themselves)
+        const friendIds = user.friends.map(friend => friend._id.toString());
+        let mutualFriends = {};
+
+        for (let friend of user.friends) {
+            const friendDetails = await User.findById(friend._id).populate('friends', 'username');
+            for (let mutualFriend of friendDetails.friends) {
+                const mutualFriendId = mutualFriend._id.toString();
+                if (mutualFriendId !== userId && !friendIds.includes(mutualFriendId)) {
+                    if (!mutualFriends[mutualFriendId]) {
+                        mutualFriends[mutualFriendId] = {
+                            username: mutualFriend.username,
+                            count: 0,
+                        };
+                    }
+                    mutualFriends[mutualFriendId].count += 1;
+                }
+            }
+        }
+
+        // Convert the mutualFriends object to an array and sort by count (number of mutual friends)
+        const recommendations = Object.entries(mutualFriends)
+            .map(([id, data]) => ({ _id: id, username: data.username, count: data.count }))
+            .sort((a, b) => b.count - a.count);
+
+        res.status(200).json({ recommendations });
+    } catch (err) {
+        console.error('Error fetching friend recommendations:', err);
+        res.status(500).json({ msg: 'Server error, please try again.' });
+    }
+});
+
+
 module.exports = router;

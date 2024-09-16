@@ -1,6 +1,7 @@
 import React from 'react';
 import SearchUser from './SearchUser';
 import FriendRequests from './FriendRequests';
+import FriendRecommendations from './FriendRecommendations';
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
@@ -18,6 +19,7 @@ const Home = () => {
             <h2>Welcome to the Home Page</h2>
             <button onClick={handleLogout}>Logout</button>
             <FriendRequests />
+            <FriendRecommendations />
             <SearchUser />
         </div>
     );
