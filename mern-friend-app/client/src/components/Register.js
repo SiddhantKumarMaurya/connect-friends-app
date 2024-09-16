@@ -13,7 +13,13 @@ const Register = () => {
         e.preventDefault();
         console.log('Form Data:', formData); // Add this line
         try {
-            const res = await axios.post('http://localhost:5000/api/auth/register', formData);
+            const interestsArray = formData.interests.split(',').map(interest => interest.trim());
+            const res = await axios.post('http://localhost:5000/api/auth/register', {
+                username: formData.username,
+                password: formData.password,
+                interests: interestsArray,
+            });
+            // setMessage(res.data.msg);
             setMessage(res.data?.msg || 'Registration successful!');
         } catch (err) {
             // Check if the error response exists
@@ -41,6 +47,13 @@ const Register = () => {
                     name="password"
                     placeholder="Password"
                     value={formData.password}
+                    onChange={handleChange}
+                />
+                <input
+                    type="text"
+                    name="interests"
+                    placeholder="Interests (comma-separated)"
+                    value={formData.interests}
                     onChange={handleChange}
                 />
                 <button type="submit">Register</button>

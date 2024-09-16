@@ -147,7 +147,7 @@ router.get('/:userId/friendRequests', auth, async (req, res) => {
     }
 });
 
-// Get friend recommendations based on mutual friends
+// Get friend recommendations based on mutual friends and common interests
 router.get('/:userId/recommendations', auth, async (req, res) => {
     const { userId } = req.params;
 
@@ -164,30 +164,67 @@ router.get('/:userId/recommendations', auth, async (req, res) => {
 
         // Collect the user's friends' friends (excluding the user's direct friends and themselves)
         const friendIds = user.friends.map(friend => friend._id.toString());
-        let mutualFriends = {};
+        let recommendations = {};
 
+        // Step 1: Find users with common interests
+        const commonInterestUsers = await User.find({
+            _id: { $ne: userId }, // Exclude the user themselves
+            interests: { $in: user.interests }, // Find users with at least one common interest
+        }).select('username interests friends');
+
+        for (let potentialFriend of commonInterestUsers) {
+            const potentialFriendId = potentialFriend._id.toString();
+
+            // Exclude direct friends and already included recommendations
+            if (friendIds.includes(potentialFriendId) || recommendations[potentialFriendId]) {
+                continue;
+            }
+
+            // Count common interests
+            const commonInterests = user.interests.filter(interest => potentialFriend.interests.includes(interest));
+            recommendations[potentialFriendId] = {
+                username: potentialFriend.username,
+                commonInterests: commonInterests.length,
+                mutualFriends: 0, // This will be updated in the next step
+            };
+        }
+
+        // Step 2: Find friends of friends and update mutual friend counts
         for (let friend of user.friends) {
-            const friendDetails = await User.findById(friend._id).populate('friends', 'username');
+            const friendDetails = await User.findById(friend._id).populate('friends', 'username interests');
+
             for (let mutualFriend of friendDetails.friends) {
                 const mutualFriendId = mutualFriend._id.toString();
-                if (mutualFriendId !== userId && !friendIds.includes(mutualFriendId)) {
-                    if (!mutualFriends[mutualFriendId]) {
-                        mutualFriends[mutualFriendId] = {
-                            username: mutualFriend.username,
-                            count: 0,
-                        };
-                    }
-                    mutualFriends[mutualFriendId].count += 1;
+
+                // Exclude the user themselves, direct friends, and already included recommendations
+                // if (mutualFriendId === userId || friendIds.includes(mutualFriendId) || recommendations[mutualFriendId]) {
+                if (mutualFriendId === userId || friendIds.includes(mutualFriendId)) {
+                 
+                    continue;
                 }
+
+                // Initialize the mutual friend in the recommendations list if not already present
+                if (!recommendations[mutualFriendId]) {
+                    recommendations[mutualFriendId] = {
+                        username: mutualFriend.username,
+                        commonInterests: 0, // This will be updated if found in the first step
+                        mutualFriends: 0,
+                    };
+                }
+
+                // Update the count of mutual friends
+                recommendations[mutualFriendId].mutualFriends += 1;
             }
         }
 
-        // Convert the mutualFriends object to an array and sort by count (number of mutual friends)
-        const recommendations = Object.entries(mutualFriends)
-            .map(([id, data]) => ({ _id: id, username: data.username, count: data.count }))
-            .sort((a, b) => b.count - a.count);
+        console.log(recommendations);
 
-        res.status(200).json({ recommendations });
+        // Step 3: Convert the recommendations object to an array and sort by common interests and mutual friends
+        const recommendationsArray = Object.entries(recommendations)
+            .map(([id, data]) => ({ _id: id, ...data }))
+            .sort((a, b) => b.commonInterests - a.commonInterests || b.mutualFriends - a.mutualFriends);
+
+        res.status(200).json({ recommendations: recommendationsArray });
     } catch (err) {
         console.error('Error fetching friend recommendations:', err);
         res.status(500).json({ msg: 'Server error, please try again.' });

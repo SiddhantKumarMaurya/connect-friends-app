@@ -6,7 +6,7 @@ const router = express.Router();
 
 // Register
 router.post('/register', async (req, res) => {
-    const { username, password } = req.body;
+    const { username, password, interests } = req.body;
 
     try {
         const existingUser = await User.findOne({ username });
@@ -20,11 +20,13 @@ router.post('/register', async (req, res) => {
         const newUser = new User({
             username,
             password: hashedPassword,
+            interests, // Save interests
         });
 
         await newUser.save();
         res.status(201).json({ msg: 'User registered successfully' });
     } catch (err) {
+        console.log('Error during registration:', err);
         res.status(500).json({ msg: 'Server error, please try again.' });
     }
 });

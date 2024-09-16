@@ -5,6 +5,7 @@ const UserSchema = new mongoose.Schema({
     password: { type: String, required: true },
     friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     friendRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }], // Add friendRequests field
+    interests: [{ type: String , default:[]}], // Add interests field
 });
 
 module.exports = mongoose.model('User', UserSchema);

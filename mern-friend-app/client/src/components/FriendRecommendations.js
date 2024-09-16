@@ -18,6 +18,7 @@ const FriendRecommendations = () => {
                 headers: { 'x-auth-token': token },
             });
             setRecommendations(res.data.recommendations);
+            console.log(res.data.recommendations)
         } catch (err) {
             console.error('Error fetching recommendations:', err);
             setMessage('An error occurred while fetching friend recommendations.');
@@ -53,7 +54,7 @@ const FriendRecommendations = () => {
                 <ul>
                     {recommendations.map((recommendation) => (
                         <li key={recommendation._id}>
-                            {recommendation.username} (Mutual Friends: {recommendation.count})
+                            {recommendation.username} (Mutual Friends: {recommendation.mutualFriends}, Common Interests: {recommendation.commonInterests})
                             <button onClick={() => handleAddFriend(recommendation._id)}>Add Friend</button>
                         </li>
                     ))}
