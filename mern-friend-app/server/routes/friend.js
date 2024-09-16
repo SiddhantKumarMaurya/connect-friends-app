@@ -334,6 +334,12 @@ router.post('/unfriend', auth, async (req, res) => {
         user.friends = user.friends.filter(id => id.toString() !== friendId);
         friend.friends = friend.friends.filter(id => id.toString() !== userId);
 
+        // Add a notification for the friend being unfriended
+        friend.notifications.push({
+            message: `${user.username} has unfriended you.`,
+            // timestamp: new Date(),
+        });
+
         await user.save();
         await friend.save();
 
