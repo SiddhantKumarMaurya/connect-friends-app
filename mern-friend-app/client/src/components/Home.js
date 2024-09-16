@@ -17,9 +17,11 @@ const Home = () => {
         navigate('/login'); // Redirect to login page
     };
 
+    const userName = localStorage.getItem("username");
+
     return (
         <div>
-            <h2>Welcome to the Home Page</h2>
+            <h2>Welcome to the Home Page, {userName}</h2>
             <button onClick={handleLogout}>Logout</button>
             
              {/* Display notifications */}
@@ -30,7 +32,7 @@ const Home = () => {
 
             {/* Display friends list with option to unfriend */}
             <FriendsList />
-            
+
             <FriendRequests />
             <FriendRecommendations />
             <SearchUser />

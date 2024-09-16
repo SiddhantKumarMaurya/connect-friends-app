@@ -27,6 +27,7 @@ const Login = () => {
             const res = await axios.post('http://localhost:5000/api/auth/login', formData);
             localStorage.setItem('auth-token', res.data.token);
             localStorage.setItem('user-id', res.data.userId); // Store user ID
+            localStorage.setItem('username', res.data.username); // Store username to display on the home page
             setMessage('Login successful!');
             navigate('/home'); // Redirect to the home page after login
         } catch (err) {
