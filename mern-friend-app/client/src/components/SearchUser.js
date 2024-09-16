@@ -5,6 +5,8 @@ const SearchUser = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [users, setUsers] = useState([]);
     const [message, setMessage] = useState('');
+    const [sentRequests, setSentRequests] = useState([]); // State to track sent friend requests
+
 
     const handleSearch = async () => {
         try {
@@ -41,6 +43,9 @@ const SearchUser = () => {
             );
 
             setMessage(res.data.msg);
+
+            // Add the friendId to the list of sent requests to disable the button
+            setSentRequests([...sentRequests, friendId]);
         } catch (err) {
             console.error('Error during friend request:', err.response.data.msg);
             setMessage('An error occurred while sending the friend request.');
@@ -63,7 +68,12 @@ const SearchUser = () => {
                     {users.map((user) => (
                         <li key={user._id}>
                             {user.username}
-                            <button onClick={() => handleAddFriend(user._id)}>Add Friend</button>
+                            <button 
+                                onClick={() => handleAddFriend(user._id)}
+                                disabled={sentRequests.includes(user._id)} // Disable button if request is sent
+                            >
+                                {sentRequests.includes(user._id) ? 'Request Sent' : 'Add Friend'}
+                            </button>
                         </li>
                     ))}
                 </ul>

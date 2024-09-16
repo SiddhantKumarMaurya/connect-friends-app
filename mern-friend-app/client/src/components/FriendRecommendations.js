@@ -4,6 +4,8 @@ import axios from 'axios';
 const FriendRecommendations = () => {
     const [recommendations, setRecommendations] = useState([]);
     const [message, setMessage] = useState('');
+    const [sentRequests, setSentRequests] = useState([]); // State to track sent friend requests
+
 
     useEffect(() => {
         fetchRecommendations();
@@ -36,6 +38,10 @@ const FriendRecommendations = () => {
                 { headers: { 'x-auth-token': token }
             });
             setMessage(res.data.msg);
+
+             // Add the friendId to the list of sent requests to disable the button
+             setSentRequests([...sentRequests, friendId]);
+
             fetchRecommendations(); // Refresh recommendations
         } catch (err) {
             if (err.response && err.response.data) {
@@ -55,7 +61,12 @@ const FriendRecommendations = () => {
                     {recommendations.map((recommendation) => (
                         <li key={recommendation._id}>
                             {recommendation.username} (Mutual Friends: {recommendation.mutualFriends}, Common Interests: {recommendation.commonInterests})
-                            <button onClick={() => handleAddFriend(recommendation._id)}>Add Friend</button>
+                            <button
+                                onClick={() => handleAddFriend(recommendation._id)}
+                                disabled={sentRequests.includes(recommendation._id)} // Disable button if request is sent
+                            >
+                                {sentRequests.includes(recommendation._id) ? 'Request Sent' : 'Add Friend'}
+                            </button>
                         </li>
                     ))}
                 </ul>
