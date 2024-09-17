@@ -52,7 +52,6 @@ const FriendsList = () => {
                     {friends.map(friend => (
                         <div key={friend._id} className="w-full max-w-xs bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                             <div className="flex justify-end px-4 pt-4">
-                                {/* Dropdown or options can go here */}
                             </div>
                             <div className="flex flex-col items-center pb-10">
                                 <img className="w-24 h-24 mb-3 rounded-full shadow-lg" src="./images/profile-picture.jpg" alt="friend" />

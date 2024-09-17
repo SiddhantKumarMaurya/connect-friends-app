@@ -190,7 +190,7 @@ router.get('/:userId/recommendations', auth, async (req, res) => {
         const friendIds = user.friends.map(friend => friend._id.toString());
         let recommendations = {};
 
-        // Step 1: Find users with common interests
+        // Find users with common interests
         const commonInterestUsers = await User.find({
             _id: { $ne: userId }, // Exclude the user themselves
             interests: { $in: user.interests }, // Find users with at least one common interest
@@ -213,7 +213,7 @@ router.get('/:userId/recommendations', auth, async (req, res) => {
             };
         }
 
-        // Step 2: Find friends of friends and update mutual friend counts
+        // Find friends of friends and update mutual friend counts
         for (let friend of user.friends) {
             const friendDetails = await User.findById(friend._id).populate('friends', 'username interests');
 
@@ -243,7 +243,7 @@ router.get('/:userId/recommendations', auth, async (req, res) => {
 
         console.log(recommendations);
 
-        // Step 3: Convert the recommendations object to an array and sort by common interests and mutual friends
+        // Convert the recommendations object to an array and sort by common interests and mutual friends
         const recommendationsArray = Object.entries(recommendations)
             .map(([id, data]) => ({ _id: id, ...data }))
             .sort((a, b) => b.commonInterests - a.commonInterests || b.mutualFriends - a.mutualFriends);

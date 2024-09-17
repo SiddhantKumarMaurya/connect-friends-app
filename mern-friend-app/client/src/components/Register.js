@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // To redirect after registration
 import "./style.css"; // Assuming your own custom styles
-import { useEffect } from 'react';
 
 const Register = () => {
     const [formData, setFormData] = useState({ username: '', password: '', interests: '' });

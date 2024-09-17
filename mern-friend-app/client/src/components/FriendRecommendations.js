@@ -98,31 +98,6 @@ const FriendRecommendations = () => {
                                 }
                                 return items
                             })()}
-                            {/* {recommendations.map((recommendation, index) => (
-                                <li className="py-3 sm:py-4" key={index}>
-                                    <div className="flex items-center">
-                                        <div className="flex-1 min-w-0 ms-4">
-                                            <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                                {recommendation.username} <br></br>(Mutual Friends: {recommendation.mutualFriends}, Common Interests: {recommendation.commonInterests})
-                                            </p>
-                                        </div>
-                                        <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                            <button
-                                                onClick={() => handleAddFriend(recommendation._id)}
-                                                disabled={sentRequests.includes(recommendation._id)} // Disable button if request is sent
-                                                type="button"
-                                                className={`text-white font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ${
-                                                    sentRequests.includes(recommendation._id)
-                                                        ? 'bg-gray-500 cursor-not-allowed'
-                                                        : 'bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
-                                                }`}
-                                            >
-                                                {sentRequests.includes(recommendation._id) ? 'Request Sent' : 'Add Friend'}
-                                            </button>
-                                        </div>
-                                    </div>
-                                </li>
-                            ))} */}
                         </ul>
                     ) : (
                         <ul className="divide-y divide-gray-200 dark:divide-gray-700">

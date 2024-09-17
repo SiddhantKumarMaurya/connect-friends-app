@@ -3,15 +3,11 @@ import { BrowserRouter as Router, Route, Routes, Link, useLocation, Navigate } f
 import Register from './components/Register';
 import Login from './components/Login';
 import Home from './components/Home';
-// import { useNavigate } from 'react-router-dom';
-
-// const navigate = useNavigate();
 // // Logout function to clear localStorage
 const handleLogout = () => {
     localStorage.removeItem('auth-token');
     localStorage.removeItem('user-id');
     localStorage.removeItem('username');
-    // navigate('/login'); // Redirect to login page
 };
 
 function Navigation() {
