@@ -169,3 +169,48 @@ button {
 .requests-container p {
     @apply text-sm font-medium text-gray-900 dark:text-white
 }
+
+/* friend recommendations */
+.pop-up-message {
+    @apply  fixed top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded-md shadow-md z-50
+}
+
+.recommendations-container {
+    @apply  w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700
+}
+
+.recommendations-container .header-container {
+    @apply  flex items-center justify-between mb-4
+}
+
+.recommendations-container .header-container h5 {
+    @apply text-xl font-bold leading-none text-gray-900 dark:text-white
+}
+
+.recommendations-container .recommendations {
+    @apply  flow-root
+}
+
+.recommendations-container .recommendations ul {
+    @apply divide-y divide-gray-200 dark:divide-gray-700
+}
+
+.recommendations-container .recommendations ul li {
+    @apply py-3 sm:py-4
+}
+
+.recommendation {
+    @apply  flex items-center
+}
+
+.recommendation .person-info {
+    @apply  flex-1 min-w-0 ms-4
+}
+
+.recommendation .person-info p {
+    @apply text-sm text-wrap font-medium text-gray-900 truncate dark:text-white
+}
+
+.recommendation .button-container {
+    @apply  inline-flex items-center text-base font-semibold text-gray-900 dark:text-white
+}

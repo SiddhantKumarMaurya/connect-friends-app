@@ -55,46 +55,48 @@ const FriendRecommendations = () => {
         <>
             {/* Notification Popup */}
             {message && (
-                <div className="fixed top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded-md shadow-md z-50">
+                <div className="pop-up-message">
                     {message}
                 </div>
             )}
 
-            <div className="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-                <div className="flex items-center justify-between mb-4">
-                    <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">Friend Recommendations</h5>
+            <div className="recommendations-container">
+                <div className="header-container">
+                    <h5>Friend Recommendations</h5>
                 </div>
-                <div className="flow-root">
+                <div className="recommendations">
                     {recommendations.length > 0 ? (
-                        <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+                        <ul>
                             {(()=> {
                                 const items = []
                                 for (let i = 0; i < Math.min(4, recommendations.length); i++) {
                                     const recommendation = recommendations[i];
                                     items.push(
-                                    <li className="py-3 sm:py-4" key={i}>
-                                    <div className="flex items-center">
-                                        <div className="flex-1 min-w-0 ms-4">
-                                            <p className="text-sm text-wrap font-medium text-gray-900 truncate dark:text-white">
-                                                {recommendation.username} <br/> (Mutual Friends: {recommendation.mutualFriends}, Common Interests: {recommendation.commonInterests})
-                                            </p>
+                                    <li key={i}>
+                                        <div className="recommendation">
+                                            <div className="person-info">
+                                                <p>
+                                                    {recommendation.username} <br/> 
+                                                    (Mutual Friends: {recommendation.mutualFriends}, Common Interests: {recommendation.commonInterests})
+                                                </p>
+                                            </div>
+                                            <div className="button-container">
+                                                <button
+                                                    onClick={() => handleAddFriend(recommendation._id)}
+                                                    disabled={sentRequests.includes(recommendation._id)} // Disable button if request is sent
+                                                    type="button"
+                                                    className={`text-white font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ${
+                                                        sentRequests.includes(recommendation._id)
+                                                            ? 'bg-gray-500 cursor-not-allowed'
+                                                            : 'bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+                                                    }`}
+                                                >
+                                                    {sentRequests.includes(recommendation._id) ? 'Request Sent' : 'Add Friend'}
+                                                </button>
+                                            </div>
                                         </div>
-                                        <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                            <button
-                                                onClick={() => handleAddFriend(recommendation._id)}
-                                                disabled={sentRequests.includes(recommendation._id)} // Disable button if request is sent
-                                                type="button"
-                                                className={`text-white font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ${
-                                                    sentRequests.includes(recommendation._id)
-                                                        ? 'bg-gray-500 cursor-not-allowed'
-                                                        : 'bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
-                                                }`}
-                                            >
-                                                {sentRequests.includes(recommendation._id) ? 'Request Sent' : 'Add Friend'}
-                                            </button>
-                                        </div>
-                                    </div>
-                                </li>)
+                                    </li>
+                                    )
                                 }
                                 return items
                             })()}
