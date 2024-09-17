@@ -9,10 +9,10 @@ const Home = () => {
     const userName = localStorage.getItem("username");
 
     return (
-        <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
-            <div className="container mx-auto p-6">
-                <h2 className="text-2xl font-semibold mb-4">
-                    Welcome, {userName}
+        <div className="home-outer-container">
+            <div className="home-container">
+                <h2>
+                    {userName}'s Dashboard
                 </h2>
 
                 {/* Display notifications */}
@@ -21,25 +21,25 @@ const Home = () => {
                 </div>
 
                 {/* Friends Section */}
-                <div className="grid grid-cols-1 gap-6">
-                    {/* Friends List (full width) */}
-                    <div className="col-span-full bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+                <div className="friend-section">
+                    {/* Friends Section */}
+                    <div className="friend-section-inner">
                         <FriendsList />
                     </div>
                 </div>
 
                 {/* Friend Requests and Recommendations */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mt-6">
-                    <div className="flex justify-center bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+                <div className="friend-requests-and-recommendations">
+                    <div className="friend-requests">
                         <FriendRequests />
                     </div>
-                    <div className="flex justify-center bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+                    <div className="friend-recommendations">
                         <FriendRecommendations />
                     </div>
                 </div>
 
-                {/* Search User */}
-                <div className="mt-6 bg-white dark:bg-gray-800 rounded-lg shadow p-4 w-full">
+                {/* Search User Section */}
+                <div className="search-user-section">
                     <SearchUser />
                 </div>
             </div>

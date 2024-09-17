@@ -305,3 +305,40 @@ button {
 .users-list p {
     @apply text-sm font-medium text-gray-900 truncate dark:text-white
 }
+
+/* Home/Dashboard */
+.home-outer-container {
+    @apply  min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300
+}
+
+.home-container {
+    @apply  container mx-auto p-6
+}
+
+.home-container h2 {
+    @apply text-2xl text-center font-bold mb-4
+}
+
+.friend-section {
+    @apply grid grid-cols-1 gap-6
+}
+
+.friend-section-inner {
+    @apply  col-span-full bg-white dark:bg-gray-800 rounded-lg shadow p-4
+}
+
+.friend-requests-and-recommendations {
+    @apply  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mt-6
+}
+
+.friend-requests-and-recommendations  .friend-requests{
+    @apply  flex justify-center bg-white dark:bg-gray-800 rounded-lg shadow p-4
+}
+
+.friend-requests-and-recommendations  .friend-recommendations {
+    @apply  flex justify-center bg-white dark:bg-gray-800 rounded-lg shadow p-4
+}
+
+.search-user-section {
+    @apply  mt-6 bg-white dark:bg-gray-800 rounded-lg shadow p-4 w-full
+}
