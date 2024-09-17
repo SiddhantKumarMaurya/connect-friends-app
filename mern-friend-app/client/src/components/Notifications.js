@@ -23,51 +23,51 @@ const Notifications = () => {
     };
 
     return (
-            <div className="w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-                <div className="flex items-center justify-between mb-4">
-                    <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">Notifications</h5>
-            </div>
-            <div className="flow-root">
-                {notifications.length > 0 ? (
-                    <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-                        {(()=> {
-                            const length = notifications.length;
-                            const items = [];
-                            for (let i = length - 1; i >= Math.max(length - 5, 0); i--) {
-                                const notification = notifications[i];
-                                console.log(notification.message)
-                                items.push(
-                                <li className="py-3 sm:py-4" key={i}>
-                                    <div className="flex items-center">
-                                        <div className="flex-1 min-w-0 ms-4">
-                                            <p className="text-sm text-wrap font-medium text-gray-900 truncate dark:text-white">
-                                                {notification.message}
-                                            </p>
+            <div className="notifications-container">
+                <div className="header-container">
+                    <h5>Notifications</h5>
+                </div>
+                <div className="notifications-info">
+                    {notifications.length > 0 ? (
+                        <ul>
+                            {(()=> {
+                                const length = notifications.length;
+                                const items = [];
+                                for (let i = length - 1; i >= Math.max(length - 5, 0); i--) {
+                                    const notification = notifications[i];
+                                    console.log(notification.message)
+                                    items.push(
+                                    <li key={i}>
+                                        <div className="message-info">
+                                            <div className="message-info-text">
+                                                <p>
+                                                    {notification.message}
+                                                </p>
+                                            </div>
+                                            <div className="message-info-time">
+                                            {new Date(notification.timestamp).toLocaleString()}
+                                            </div>
                                         </div>
-                                        <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                        {new Date(notification.timestamp).toLocaleString()}
-                                        </div>
+                                    </li>
+                                    );
+                                }
+                                return items
+                            })()}
+                        </ul>
+                    ) : (
+                        <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+                            <li className="py-3 sm:py-4">
+                                <div className="flex items-center">
+                                    <div className="flex-1 min-w-0 ms-4">
+                                        <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                            No notifications
+                                        </p>
                                     </div>
-                                </li>
-                                );
-                            }
-                            return items
-                        })()}
-                    </ul>
-                ) : (
-                    <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-                        <li className="py-3 sm:py-4">
-                            <div className="flex items-center">
-                                <div className="flex-1 min-w-0 ms-4">
-                                    <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                        No notifications
-                                    </p>
                                 </div>
-                            </div>
-                        </li>
-                    </ul>
-                    )}
-            </div>
+                            </li>
+                        </ul>
+                        )}
+                </div>
             </div>
     );
 };

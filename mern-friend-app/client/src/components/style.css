@@ -50,3 +50,44 @@ button {
 .input-container {
     @apply  mt-1
 }
+
+/* notification */
+.notifications-container {
+    @apply  w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700
+}
+
+.notifications-container .header-container {
+    @apply flex items-center justify-between mb-4
+}
+
+.notifications-container .header-container h5 {
+    @apply text-xl font-bold leading-none text-gray-900 dark:text-white
+}
+
+.notifications-info {
+    @apply  flow-root
+}
+
+.notifications-info ul {
+    @apply divide-y divide-gray-200 dark:divide-gray-700
+}
+
+.notifications-info ul li {
+    @apply py-3 sm:py-4
+}
+
+.message-info {
+    @apply  flex items-center
+}
+
+.message-info-text {
+    @apply  flex-1 min-w-0 ms-4
+}
+
+.message-info-text p {
+    @apply text-sm text-wrap font-medium text-gray-900 truncate dark:text-white
+}
+
+.message-info-time {
+    @apply  inline-flex items-center text-base font-semibold text-gray-900 dark:text-white
+}
