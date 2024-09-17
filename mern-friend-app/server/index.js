@@ -5,13 +5,15 @@ const authRoutes = require('./routes/auth');
 const cors = require('cors'); // Import cors
 const friendRoutes = require('./routes/friend');
 
-dotenv.config();
 const app = express();
+app.use(cors()); // Enable CORS
+
+dotenv.config();
+
 const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(express.json());
-app.use(cors()); // Enable CORS
 
 // Routes
 app.use('/api/auth', authRoutes);

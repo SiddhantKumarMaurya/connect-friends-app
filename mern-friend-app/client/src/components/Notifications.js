@@ -38,7 +38,7 @@ const Notifications = () => {
         </div> */}
         
 
-<div className="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+<div className="w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
     <div className="flex items-center justify-between mb-4">
         <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">Notifications</h5>
    </div>
@@ -55,7 +55,7 @@ const Notifications = () => {
                     <li className="py-3 sm:py-4" key={i}>
                         <div className="flex items-center">
                             <div className="flex-1 min-w-0 ms-4">
-                                <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                <p className="text-sm text-wrap font-medium text-gray-900 truncate dark:text-white">
                                     {notification.message}
                                 </p>
                             </div>

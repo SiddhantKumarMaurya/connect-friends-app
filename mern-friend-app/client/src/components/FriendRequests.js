@@ -71,7 +71,7 @@ const FriendRequests = () => {
                             items.push(
                                 <li key={request._id} className="py-3 sm:py-4">
                             <div className="flex items-center justify-between">
-                                <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                <p className="text-sm text-wrap font-medium text-gray-900 truncate dark:text-white">
                                     {request.username}
                                 </p>
                                 <div className="inline-flex items-center space-x-2">
