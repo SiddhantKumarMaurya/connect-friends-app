@@ -35,7 +35,6 @@ const Notifications = () => {
                                 const items = [];
                                 for (let i = length - 1; i >= Math.max(length - 5, 0); i--) {
                                     const notification = notifications[i];
-                                    console.log(notification.message)
                                     items.push(
                                     <li key={i}>
                                         <div className="message-info">

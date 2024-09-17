@@ -241,8 +241,6 @@ router.get('/:userId/recommendations', auth, async (req, res) => {
             }
         }
 
-        console.log(recommendations);
-
         // Convert the recommendations object to an array and sort by common interests and mutual friends
         const recommendationsArray = Object.entries(recommendations)
             .map(([id, data]) => ({ _id: id, ...data }))
@@ -269,7 +267,6 @@ router.get('/:userId/notifications', auth, async (req, res) => {
             return res.status(404).json({ msg: 'User not found' });
         }
 
-        console.log("I am here")
         res.status(200).json({ notifications: user.notifications });
     } catch (err) {
         console.error('Error fetching notifications:', err);

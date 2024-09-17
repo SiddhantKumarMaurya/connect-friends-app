@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Link, useLocation, Navigate } f
 import Register from './components/Register';
 import Login from './components/Login';
 import Home from './components/Home';
-// // Logout function to clear localStorage
+// Logout function to clear localStorage
 const handleLogout = () => {
     localStorage.removeItem('auth-token');
     localStorage.removeItem('user-id');
