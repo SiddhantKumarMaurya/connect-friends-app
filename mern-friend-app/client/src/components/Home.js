@@ -22,7 +22,6 @@ const Home = () => {
 
                 {/* Friends Section */}
                 <div className="friend-section">
-                    {/* Friends Section */}
                     <div className="friend-section-inner">
                         <FriendsList />
                     </div>

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Link, useLocation, Navigate } f
 import Register from './components/Register';
 import Login from './components/Login';
 import Home from './components/Home';
+
 // Logout function to clear localStorage
 const handleLogout = () => {
     localStorage.removeItem('auth-token');
@@ -11,28 +12,28 @@ const handleLogout = () => {
 };
 
 function Navigation() {
-    const location = useLocation(); // Use useLocation inside a child component
+    const location = useLocation(); 
     const isUsernamePresent = !!localStorage.getItem('username'); // check if 'username' is in localStorage
     return (
-        <div className="fixed bottom-0 z-50 w-full -translate-x-1/2 bg-white border-t border-gray-200 left-1/2 dark:bg-gray-700 dark:border-gray-600">
-            <div className="w-full">
-                <div className="grid max-w-xs grid-cols-3 gap-1 p-1 mx-auto my-2 bg-gray-100 rounded-lg dark:bg-gray-600" role="group">
+        <div className="navigation-container">
+            <div className="navigation-container-inner">
+                <div className="navigation-bar" role="group">
                     <Link
                         to="/register"
-                        className={`px-5 py-1.5 text-xs font-medium rounded-lg ${
+                        className={`link-state-one ${
                             location.pathname === '/register'
-                                ? 'text-white bg-gray-900 dark:bg-gray-300 dark:text-gray-900'
-                                : 'text-gray-900 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700'
+                                ? 'link-state-two'
+                                : 'link-state-three'
                         }`}
                     >
                         Register
                     </Link>
                     <Link
                         to="/login"
-                        className={`px-5 py-1.5 text-xs font-medium rounded-lg ${
+                        className={`link-state-one ${
                             location.pathname === '/login'
-                                ? 'text-white bg-gray-900 dark:bg-gray-300 dark:text-gray-900'
-                                : 'text-gray-900 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700'
+                                ? 'link-state-two'
+                                : 'link-state-three'
                         }`}
                         onClick={handleLogout}
                     >
@@ -40,10 +41,10 @@ function Navigation() {
                     </Link>
                     <Link
                         to="/home"
-                        className={`px-5 py-1.5 text-xs font-medium rounded-lg ${
+                        className={`link-state-one ${
                             location.pathname === '/home'
-                                ? 'text-white bg-gray-900 dark:bg-gray-300 dark:text-gray-900'
-                                : 'text-gray-900 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700'
+                                ? 'link-state-two'
+                                : 'link-state-three'
                         }`}
                         onClick={(e) => {
                             if (!isUsernamePresent) {

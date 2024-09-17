@@ -342,3 +342,27 @@ button {
 .search-user-section {
     @apply  mt-6 bg-white dark:bg-gray-800 rounded-lg shadow p-4 w-full
 }
+
+.navigation-container {
+    @apply  fixed bottom-0 z-50 w-full -translate-x-1/2 bg-white border-t border-gray-200 left-1/2 dark:bg-gray-700 dark:border-gray-600
+}
+
+.navigation-container-inner {
+    @apply  w-full
+}
+
+.navigation-bar {
+    @apply  grid max-w-xs grid-cols-3 gap-1 p-1 mx-auto my-2 bg-gray-100 rounded-lg dark:bg-gray-600
+}
+
+.navigation-bar .link-state-one {
+    @apply  px-5 py-1.5 text-xs font-medium rounded-lg
+}
+
+.navigation-bar .link-state-two {
+    @apply text-white bg-gray-900 dark:bg-gray-300 dark:text-gray-900
+}
+
+.navigation-bar .link-state-three {
+    @apply  text-gray-900 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700
+}
