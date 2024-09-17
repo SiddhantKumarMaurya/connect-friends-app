@@ -3,6 +3,9 @@ const User = require('../models/User');
 const auth = require('../middleware/auth');
 const mongoose = require('mongoose');
 const router = express.Router();
+const cors = require('cors'); // Import cors
+
+router.use(cors()); // Enable CORS
 
 // Search for users
 router.get('/search', auth, async (req, res) => {

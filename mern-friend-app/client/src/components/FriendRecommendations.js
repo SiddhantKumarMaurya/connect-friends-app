@@ -75,7 +75,7 @@ const FriendRecommendations = () => {
                                     <li className="py-3 sm:py-4" key={i}>
                                     <div className="flex items-center">
                                         <div className="flex-1 min-w-0 ms-4">
-                                            <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                            <p className="text-sm text-wrap font-medium text-gray-900 truncate dark:text-white">
                                                 {recommendation.username} <br/> (Mutual Friends: {recommendation.mutualFriends}, Common Interests: {recommendation.commonInterests})
                                             </p>
                                         </div>
