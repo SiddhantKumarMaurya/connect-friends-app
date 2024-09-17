@@ -29,7 +29,7 @@ router.post('/request', auth, async (req, res) => {
     try {
         // Prevent users from friending themselves
         if (userId === friendId) {
-            return res.status(400).json({ msg: 'You cannot add yourself as a friend.' });
+            return res.status(400).json({ msg: 'Cannot friend self' });
         }
 
         const user = await User.findById(userId);
@@ -41,12 +41,12 @@ router.post('/request', auth, async (req, res) => {
 
         // Prevent adding an existing friend
         if (user.friends.includes(friendId) || friend.friends.includes(userId)) {
-            return res.status(400).json({ msg: 'You are already friends.' });
+            return res.status(400).json({ msg: 'Already friends.' });
         }
 
         // Prevent sending duplicate friend requests
         if (friend.friendRequests.includes(userId)) {
-            return res.status(400).json({ msg: 'Friend request already sent.' });
+            return res.status(400).json({ msg: 'Request already sent.' });
         }
 
         // Add the friend request to the friend's pending requests
@@ -59,7 +59,7 @@ router.post('/request', auth, async (req, res) => {
 
         await friend.save();
 
-        res.status(200).json({ msg: 'Friend request sent' });
+        res.status(200).json({ msg: 'Request sent' });
     } catch (err) {
         console.error('Error during friend request:', err);
         res.status(500).json({ msg: 'Server error, please try again.' });
