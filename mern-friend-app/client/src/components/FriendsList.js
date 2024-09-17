@@ -41,23 +41,21 @@ const FriendsList = () => {
     };
 
     return (
-        <div className="w-full">
+        <div className="friend-list-container">
             {/* Heading */}
-            <h2 className="text-center text-3xl font-semibold text-gray-900 dark:text-white mb-6">
+            <h2>
                 Friends List
             </h2>
 
             {friends.length > 0 ? (
-                <div className="flex flex-wrap justify-center gap-6">
+                <div className="friend-list">
                     {friends.map(friend => (
-                        <div key={friend._id} className="w-full max-w-xs bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                            <div className="flex justify-end px-4 pt-4">
-                            </div>
-                            <div className="flex flex-col items-center pb-10">
-                                <img className="w-24 h-24 mb-3 rounded-full shadow-lg" src="./images/profile-picture.jpg" alt="friend" />
-                                <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">{friend.username}</h5>
-                                <div className="flex mt-4">
-                                    <button onClick={() => handleUnfriend(friend._id)} className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <div key={friend._id} className="friend-outer-container">
+                            <div className="friend-container">
+                                <img src="./images/profile-picture.jpg" alt="friend" />
+                                <h5>{friend.username}</h5>
+                                <div>
+                                    <button onClick={() => handleUnfriend(friend._id)}>
                                         Unfriend
                                     </button>
                                 </div>

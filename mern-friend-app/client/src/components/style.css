@@ -91,3 +91,40 @@ button {
 .message-info-time {
     @apply  inline-flex items-center text-base font-semibold text-gray-900 dark:text-white
 }
+
+/* friends list */
+.friend-list-container {
+    @apply  w-full
+}
+
+.friend-list-container h2 {
+    @apply text-center text-3xl font-semibold text-gray-900 dark:text-white mb-6
+}
+
+.friend-list {
+    @apply  flex flex-wrap justify-center gap-6
+}
+
+.friend-outer-container {
+    @apply  w-full max-w-xs bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700
+}
+
+.friend-container {
+    @apply  flex flex-col items-center pb-10 pt-6
+}
+
+.friend-container img {
+    @apply w-24 h-24 mb-3 rounded-full shadow-lg
+}
+
+.friend-container h5 {
+    @apply mb-1 text-xl font-medium text-gray-900 dark:text-white
+}
+
+.friend-container div {
+    @apply flex mt-4
+}
+
+.friend-container div button {
+    @apply inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800
+}
