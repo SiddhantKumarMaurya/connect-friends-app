@@ -77,7 +77,8 @@ const FriendRecommendations = () => {
                                             <div className="person-info">
                                                 <p>
                                                     {recommendation.username} <br/> 
-                                                    (Mutual Friends: {recommendation.mutualFriends}, Common Interests: {recommendation.commonInterests})
+                                                    Mutual Friends: {recommendation.mutualFriends}, <br/>
+                                                    Common Interests: {recommendation.commonInterests}
                                                 </p>
                                             </div>
                                             <div className="button-container">
@@ -85,10 +86,10 @@ const FriendRecommendations = () => {
                                                     onClick={() => handleAddFriend(recommendation._id)}
                                                     disabled={sentRequests.includes(recommendation._id)} // Disable button if request is sent
                                                     type="button"
-                                                    className={`text-white font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ${
+                                                    className={`button-state-one ${
                                                         sentRequests.includes(recommendation._id)
-                                                            ? 'bg-gray-500 cursor-not-allowed'
-                                                            : 'bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+                                                            ? 'button-state-two'
+                                                            : 'button-state-three'
                                                     }`}
                                                 >
                                                     {sentRequests.includes(recommendation._id) ? 'Request Sent' : 'Add Friend'}
@@ -102,17 +103,9 @@ const FriendRecommendations = () => {
                             })()}
                         </ul>
                     ) : (
-                        <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-                            <li className="py-3 sm:py-4">
-                                <div className="flex items-center">
-                                    <div className="flex-1 min-w-0 ms-4">
-                                        <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                            No recommendations available
-                                        </p>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
+                        <p>
+                            No recommendations available
+                        </p>
                     )}
                 </div>
             </div>

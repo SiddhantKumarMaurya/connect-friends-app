@@ -64,7 +64,7 @@ const FriendsList = () => {
                     ))}
                 </div>
             ) : (
-                <p className="text-center text-gray-700 dark:text-gray-400">No friends added.</p>
+                <p>No friends added.</p>
             )}
         </div>
     );

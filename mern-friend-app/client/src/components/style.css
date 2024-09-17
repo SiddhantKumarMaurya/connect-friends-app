@@ -129,6 +129,10 @@ button {
     @apply inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800
 }
 
+.friend-list-container p {
+    @apply text-center text-sm font-medium text-gray-900 truncate dark:text-white
+}
+
 /* friend requests */
 .requests-container {
     @apply w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700
@@ -167,7 +171,7 @@ button {
 }
 
 .requests-container p {
-    @apply text-sm font-medium text-gray-900 dark:text-white
+    @apply text-center text-sm font-medium text-gray-900 dark:text-white
 }
 
 /* friend recommendations */
@@ -208,9 +212,96 @@ button {
 }
 
 .recommendation .person-info p {
-    @apply text-sm text-wrap font-medium text-gray-900 truncate dark:text-white
+    @apply text-sm text-left text-wrap font-medium text-gray-900 truncate dark:text-white
 }
 
 .recommendation .button-container {
     @apply  inline-flex items-center text-base font-semibold text-gray-900 dark:text-white
+}
+
+.recommendation .button-container .button-state-one {
+    @apply  text-white font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+}
+
+.recommendation .button-container .button-state-two {
+    @apply  bg-gray-500 cursor-not-allowed
+}
+
+.recommendation .button-container .button-state-three {
+    @apply  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800
+}
+
+.recommendations p {
+    @apply text-center text-sm font-medium text-gray-900 truncate dark:text-white
+}
+
+
+
+/* intial users and search user */
+.users-container {
+    @apply  w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700
+}
+
+.users {
+    @apply  flex flex-col items-center justify-center h-full w-full
+}
+
+.users-heading {
+    @apply  flex items-center justify-between mb-4 w-full
+}
+
+.users-heading h5 {
+    @apply text-xl font-bold leading-none text-gray-900 dark:text-white
+}
+
+.users form {
+    @apply w-full
+}
+
+.users form div {
+    @apply relative
+}
+
+.users form div input {
+    @apply block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500
+}
+
+.users-list {
+    @apply flow-root w-full flex-grow mt-4
+}
+
+.users-list ul {
+    @apply flex flex-wrap gap-4 justify-center w-full
+}
+
+.users-list ul li {
+    @apply py-3 sm:py-4
+}
+
+.user {
+    @apply  flex flex-col items-center p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700
+}
+
+.user img {
+    @apply w-16 h-16 mb-3 rounded-full shadow-lg
+}
+
+.user p {
+    @apply text-sm font-medium text-gray-900 dark:text-white
+}
+
+.user .button-state-one {
+    @apply  text-white font-medium rounded-lg text-sm px-5 py-2.5 mt-2
+}
+
+.user .button-state-two {
+    @apply  bg-gray-500 cursor-not-allowed
+}
+
+.user .button-state-three {
+    @apply  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800
+}
+
+.users-list p {
+    @apply text-sm font-medium text-gray-900 truncate dark:text-white
 }
