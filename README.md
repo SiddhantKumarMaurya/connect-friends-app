@@ -1,4 +1,4 @@
-## How to install and run
+## How to run?
 1. clone the repository
 2. run backend:
     - navigate to `mern-friend-app/server` and run command `npm install`, this will install all the necessary dependencies.
